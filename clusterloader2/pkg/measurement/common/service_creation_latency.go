@@ -142,11 +142,11 @@ func (s *serviceCreationLatencyMeasurement) start() error {
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				s.selector.ApplySelectors(&options)
-				return s.client.CoreV1().ServicesWithMultiTenancy(s.selector.Namespace, util.GetTenant()).List(options)
+				return s.client.CoreV1().Services(s.selector.Namespace).List(options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				s.selector.ApplySelectors(&options)
-				return s.client.CoreV1().ServicesWithMultiTenancy(s.selector.Namespace, util.GetTenant()).Watch(options)
+				return s.client.CoreV1().Services(s.selector.Namespace).Watch(options)
 			},
 		},
 		func(oldObj, newObj interface{}) {

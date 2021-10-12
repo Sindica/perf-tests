@@ -126,11 +126,11 @@ func (p *podStartupLatencyMeasurement) start(c clientset.Interface) error {
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				p.selector.ApplySelectors(&options)
-				return c.CoreV1().PodsWithMultiTenancy(p.selector.Namespace, util.GetTenant()).List(options)
+				return c.CoreV1().Pods(p.selector.Namespace).List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				p.selector.ApplySelectors(&options)
-				return c.CoreV1().PodsWithMultiTenancy(p.selector.Namespace, util.GetTenant()).Watch(options)
+				return c.CoreV1().Pods(p.selector.Namespace).Watch(options)
 			},
 		},
 		p.addEvent,

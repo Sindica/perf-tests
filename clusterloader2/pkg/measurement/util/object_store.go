@@ -119,10 +119,10 @@ func initPodStore(c clientset.Interface) (*PodStore, error) {
 	klog.V(4).Infof("initPodStore")
 	lw := &cache.ListWatch{
 		ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-			return c.CoreV1().Pods(selector.Namespace).List(options)
+			return c.CoreV1().Pods(metav1.NamespaceAll).List(options)
 		},
 		WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
-			return c.CoreV1().Pods(selector.Namespace).Watch(options)
+			return c.CoreV1().Pods(metav1.NamespaceAll).Watch(options)
 		},
 	}
 	labelIndexers := cache.Indexers{
